@@ -3,15 +3,14 @@ package com.dasbikash.android_extensions
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.os.*
+import android.os.Build
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
-import java.io.ByteArrayOutputStream
-import java.io.ObjectOutputStream
-import java.text.NumberFormat
 
 /**
  * Extension function to hide view
@@ -142,24 +141,6 @@ fun Any.runOnMainThread(task: () -> Any?,delayMs:Long=0L){
  *
  */
 fun isOnMainThread() = (Thread.currentThread() == Looper.getMainLooper().thread)
-
-/**
- * Get currency string for double value
- *
- * @return currency string for subject value
- * */
-fun Double.getCurrencyString():String{
-    return NumberFormat.getCurrencyInstance().format(this).substring(1)
-}
-
-/**
- * Get currency string for Long value
- *
- * @return currency string for subject value
- * */
-fun Long.getCurrencyString():String{
-    return NumberFormat.getCurrencyInstance().format(this).substring(1)
-}
 
 /**
  * Extension function on launch task from activity
