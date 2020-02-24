@@ -164,7 +164,7 @@ fun Activity.runIfNotDestroyed(task:()->Any?){
 /**
  * ```
  * Extension function to launch task from any LifecycleOwner
- * Task will run only if LifecycleOwner is not destroyed
+ * Task will run only if LifecycleOwner (Fragment/AppCompatActivity) is not destroyed
  *```
  *
  * @param task posted functional parameter
@@ -176,8 +176,8 @@ fun LifecycleOwner.runIfNotDestroyed(task:()->Any?){
 }
 
 /**
- * Extension function on launch task from any LifecycleOwner
- * Task will run only if LifecycleOwner is resumed
+ * Extension function to launch task from any LifecycleOwner.
+ * Task will run only if LifecycleOwner (Fragment/AppCompatActivity) is resumed.
  *
  * @param task posted functional parameter
  * */
