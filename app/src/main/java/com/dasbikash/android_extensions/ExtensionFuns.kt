@@ -46,7 +46,7 @@ fun View.toggle(){
 
 /**
  * ```
- * Extension function to run task with fragment context.
+ * Extension function on Fragment to run task with context.
  * Task will run only if fragment is active i.e. not destroyed.
  *```
  * @param task subject task into which fragment context will be injected as parameter
@@ -60,7 +60,7 @@ fun <R> Fragment.runWithContext(task:(Context)->R){
 
 /**
  * ```
- * Extension function to run task with fragment activity.
+ * Extension function on Fragment to run task with activity.
  * Task will run only if fragment is is active i.e. not destroyed.
  *```
  *
@@ -115,8 +115,8 @@ fun <T: AppCompatActivity> AppCompatActivity.startActivityForResult(type:Class<T
 
 /**
  * ```
- * Extension function on launch task on main thread with optional delay.
- * If launched from Fragment/Activity then will run the task only if that is not destroyed.
+ * Extension function to launch task on main thread with optional delay.
+ * If launched from Fragment/Activity then will run the task if not destroyed.
  * ```
  *
  * @param task posted functional parameter
@@ -135,7 +135,7 @@ fun Any.runOnMainThread(task: () -> Any?,delayMs:Long=0L){
 }
 
 /**
- * Extension function on check if running on Main/UI thread
+ * Extension function to check if running on Main/UI thread
  *
  * @return true if on main thread else false
  *
@@ -143,8 +143,10 @@ fun Any.runOnMainThread(task: () -> Any?,delayMs:Long=0L){
 fun isOnMainThread() = (Thread.currentThread() == Looper.getMainLooper().thread)
 
 /**
- * Extension function on launch task from activity
+ * ```
+ * Extension function to launch task from activity
  * Task will run only if activity is not destroyed
+ *```
  *
  * @param task posted functional parameter
  * */
@@ -160,8 +162,10 @@ fun Activity.runIfNotDestroyed(task:()->Any?){
 }
 
 /**
- * Extension function on launch task from any LifecycleOwner
+ * ```
+ * Extension function to launch task from any LifecycleOwner
  * Task will run only if LifecycleOwner is not destroyed
+ *```
  *
  * @param task posted functional parameter
  * */
