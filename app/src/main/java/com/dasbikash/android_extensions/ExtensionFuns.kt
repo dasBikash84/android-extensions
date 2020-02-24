@@ -7,7 +7,9 @@ import android.os.Build
 import android.os.Handler
 import android.os.Looper
 import android.view.View
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.text.HtmlCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
@@ -185,4 +187,13 @@ fun LifecycleOwner.runIfResumed(task:()->Any?){
     if (this.lifecycle.currentState == Lifecycle.State.RESUMED){
         task()
     }
+}
+
+/**
+ * Extension Method to display Html text on textview.
+ *
+ * @param text | text containing Html tags
+ * */
+fun TextView.displayHtmlText(text: String) {
+    this.text = HtmlCompat.fromHtml(text, HtmlCompat.FROM_HTML_MODE_LEGACY)
 }
