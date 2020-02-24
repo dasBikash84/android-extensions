@@ -12,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.HtmlCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleOwner
 
 /**
  * Extension function to hide view
@@ -126,7 +125,9 @@ fun <T: AppCompatActivity> AppCompatActivity.startActivityForResult(type:Class<T
  * */
 fun Any.runOnMainThread(task: () -> Any?,delayMs:Long=0L){
     Handler(Looper.getMainLooper()).postDelayed( {
-        if (this is LifecycleOwner){
+        if (this is AppCompatActivity){
+            runIfNotDestroyed { task() }
+        }else if(this is Fragment){
             runIfNotDestroyed { task() }
         }else if(this is Activity){
             runIfNotDestroyed { task() }
@@ -165,25 +166,51 @@ fun Activity.runIfNotDestroyed(task:()->Any?){
 
 /**
  * ```
- * Extension function to launch task from any LifecycleOwner
- * Task will run only if LifecycleOwner (Fragment/AppCompatActivity) is not destroyed
+ * Extension function to launch task from any AppCompatActivity
+ * Task will run only if not destroyed
  *```
  *
  * @param task posted functional parameter
  * */
-fun LifecycleOwner.runIfNotDestroyed(task:()->Any?){
+fun AppCompatActivity.runIfNotDestroyed(task:()->Any?){
     if (this.lifecycle.currentState != Lifecycle.State.DESTROYED){
         task()
     }
 }
 
 /**
- * Extension function to launch task from any LifecycleOwner.
- * Task will run only if LifecycleOwner (Fragment/AppCompatActivity) is resumed.
+ * ```
+ * Extension function to launch task from any Fragment
+ * Task will run only if not destroyed
+ *```
  *
  * @param task posted functional parameter
  * */
-fun LifecycleOwner.runIfResumed(task:()->Any?){
+fun Fragment.runIfNotDestroyed(task:()->Any?){
+    if (this.lifecycle.currentState != Lifecycle.State.DESTROYED){
+        task()
+    }
+}
+
+/**
+ * Extension function to launch task from AppCompatActivity.
+ * Task will run only if resumed.
+ *
+ * @param task posted functional parameter
+ * */
+fun AppCompatActivity.runIfResumed(task:()->Any?){
+    if (this.lifecycle.currentState == Lifecycle.State.RESUMED){
+        task()
+    }
+}
+
+/**
+ * Extension function to launch task from any Fragment.
+ * Task will run only if resumed.
+ *
+ * @param task posted functional parameter
+ * */
+fun Fragment.runIfResumed(task:()->Any?){
     if (this.lifecycle.currentState == Lifecycle.State.RESUMED){
         task()
     }
