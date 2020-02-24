@@ -224,3 +224,23 @@ fun Fragment.runIfResumed(task:()->Any?){
 fun TextView.displayHtmlText(text: String) {
     this.text = HtmlCompat.fromHtml(text, HtmlCompat.FROM_HTML_MODE_LEGACY)
 }
+
+/**
+ * Method for Dp to Pixel conversion
+ *
+ * @param context | Android Context
+ * @param dp | Dp in Int
+ * @return returns pixels in float
+ * */
+fun Any.dpToPx(dp: Int, context: Context): Float =
+    (dp * context.getResources().getDisplayMetrics().density)
+
+/**
+ * Method for Pixel to Dp conversion
+ *
+ * @param context | Android Context
+ * @param px | pixels in float
+ * @return returns Dp in float
+ * */
+fun Any.pxToDp(px: Int, context: Context): Float =
+    (px / context.getResources().getDisplayMetrics().density)
