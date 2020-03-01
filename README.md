@@ -1,6 +1,6 @@
 # android-extensions
 
-### Useful kotlin [`extensions`](https://github.com/dasBikash84/android-extensions/blob/master/app/src/main/java/com/dasbikash/android_extensions/ExtensionFuns.kt) for Android.
+### Useful kotlin [`extensions`](https://github.com/dasBikash84/android-extensions/blob/master/android-ext/src/main/java/com/dasbikash/android_extensions/ExtensionFuns.kt) for Android.
 
 [![](https://jitpack.io/v/dasBikash84/android-extensions.svg)](https://jitpack.io/#dasBikash84/android-extensions)
 
