@@ -250,24 +250,3 @@ fun Any.dpToPx(dp: Int, context: Context): Float =
  * */
 fun Any.pxToDp(px: Int, context: Context): Float =
     (px / context.getResources().getDisplayMetrics().density)
-
-/**
- * Extension function on launch async task
- * suspending any suspension function
- *
- * @param task posted functional parameter
- * */
-suspend fun <T:Any> runSuspended(task:()->T):T {
-    coroutineContext().let {
-        return withContext(it) {
-            return@withContext async(Dispatchers.IO) { task() }.await()
-        }
-    }
-}
-
-/**
- * Extension function on access CoroutineContext from inside of any suspension function
- *
- * @return subject CoroutineContext
- * */
-suspend fun coroutineContext(): CoroutineContext = suspendCoroutine { it.resume(it.context) }
