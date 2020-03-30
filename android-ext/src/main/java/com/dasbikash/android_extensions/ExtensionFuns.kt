@@ -7,6 +7,7 @@ import android.os.Build
 import android.os.Handler
 import android.os.Looper
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.HtmlCompat
@@ -252,22 +253,11 @@ fun Any.pxToDp(px: Int, context: Context): Float =
     (px / context.getResources().getDisplayMetrics().density)
 
 /**
- * Extension function on launch async task
- * suspending any suspension function
- *
- * @param task posted functional parameter
+ * Extension function on Fragment to hide soft keyboard.
  * */
-suspend fun <T:Any> runSuspended(task:()->T):T {
-    coroutineContext().let {
-        return withContext(it) {
-            return@withContext async(Dispatchers.IO) { task() }.await()
-        }
+fun Fragment.hideKeyboard() {
+    runWithContext {
+        val imm: InputMethodManager = it.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view?.windowToken, 0)
     }
 }
-
-/**
- * Extension function on access CoroutineContext from inside of any suspension function
- *
- * @return subject CoroutineContext
- * */
-suspend fun coroutineContext(): CoroutineContext = suspendCoroutine { it.resume(it.context) }
