@@ -129,7 +129,7 @@ fun <T: AppCompatActivity> AppCompatActivity.startActivityForResult(type:Class<T
  * @param task posted functional parameter
  * @param delayMs optional delay in milli-seconds
  * */
-fun Any.runOnMainThread(task: () -> Any?,delayMs:Long=0L){
+fun <T> Any.runOnMainThread(task: () -> T,delayMs:Long=0L){
     Handler(Looper.getMainLooper()).postDelayed( {
         if (this is AppCompatActivity){
             runIfNotDestroyed { task() }
